@@ -1,0 +1,66 @@
+<html lang="en" translate="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://cdn.staticfile.org" />
+    <link rel="preconnect" href="https://lib.baomitu.com" />
+    <meta name="google" content="notranslate">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="telephone=no,email=no" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>TOTPer</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/toastify-js/1.12.0/toastify.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+    <div class="basePart">
+        <div class="mainPart">
+            <div class="childPart" style="margin-bottom:0;">
+                <h1>
+                    <a href="/" style="color: #484848;">TOTPer</a>
+                </h1>
+            </div>
+            <div class="childPart" style="min-height: 40px;background-color: #dddddd59;">
+                <div class="originInput">
+                    <div class="totpResult">
+                        <div id="pwdInput">[WAITING...]</div>
+                    </div>
+                    <div class="inputRange">
+                        <nobr><span class="inputRangeNotice">Expires in:&nbsp;<span
+                                    id="rangeValue">&nbsp;</span>s</span>
+                        </nobr>
+                        <input type="range" min="0" max="30" value="0" id="inputRange" step="1" disabled="disabled" />
+                    </div>
+                    <div class="inputRange">
+                        <div class="keyInput">
+                            <input type="text" name="keyInput" id="keyInput" onkeydown="pressEnter('startTOTPgen')"
+                                placeholder="key">
+                        </div>
+                        <div class="keyInput" style="width: 25%;margin-left: 8px;">
+                            <input type="number" name="maxTime" id="maxTime" placeholder="time" value="30">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chilePart noMargin">
+                <div class="opBar">
+                    <div class="opBar noMargin">
+                        <a href="javascript:void(0);" onclick="copyInnerText('pwdInput')" class="CS-fakeBtn-black"
+                            draggable="false">
+                            <span><span style="color: #ffffff;" id="fakeUpBtnText">Copy</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/totp.min.js"></script>
+    <script src="https://cdn.staticfile.org/qrcodejs/1.0.0/qrcode.js"></script>
+    <script src="https://cdn.staticfile.org/toastify-js/1.12.0/toastify.min.js"></script>
+    <script src="assets/main.js"></script>
+</body>
+
+</html>
