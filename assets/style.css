@@ -92,13 +92,14 @@
     align-items: center;
     flex-direction: row;
     margin: 0 8px 0 8px;
+    justify-content: center;
+    flex-wrap: nowrap;
 }
 
 .inputRangeNotice {
-    background-color: #1f1f1fad;
+    background-color: #ebebeb;
     padding: 4px 8px;
-    border-radius: 8px;
-    color: #fff;
+    color: #484848;
 }
 
 #inputRange {
@@ -339,7 +340,7 @@ h4 {
     padding-top: 4px;
 }
 
-.keyInput input{
+.keyInput input {
     width: 100%;
     text-align: center;
     border: none;

@@ -84,10 +84,9 @@ function copyInnerText(id) {
     }
 }
 
-function pressEnter(varName) {
-    var evt = window.event || e;
-    var targetElement = event.target || event.srcElement;
-    if (evt.keyCode == 13 && targetElement.value) {
+function pressEnter(sourceTagId,varName) {
+    sourceTag = document.getElementById(sourceTagId);
+    if (sourceTag.value) {
         eval(varName + "();");
     }
 }
