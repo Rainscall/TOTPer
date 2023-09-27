@@ -56,7 +56,16 @@ function startTOTPgen() {
     if (!localKey) {
         localStorage.setItem("localKey", encryptAES256(keyInput.value, decryptKey));
         localKey = decryptAES256(localStorage.getItem("localKey"), decryptKey);
-        console.log(localKey);
+        Toastify({
+            text: "Key saved.",
+            duration: 1200,
+            className: "info",
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "#414141",
+            }
+        }).showToast();
     }
 
     if (localKey && keyInput.value && localKey != keyInput.value) {
