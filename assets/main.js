@@ -1,9 +1,68 @@
+function startUp() {
+    var localKey = localStorage.getItem("localKey");
+
+    if (localKey) {
+        keyInput.value = localKey;
+        startTOTPgen();
+    }
+}
+
+var resetKeyCilckTimes = 0;
+function resetKey() {
+    const resetKeyText = document.getElementById('resetKeyText');
+
+    if (resetKeyCilckTimes == 0) {
+        resetKeyCilckTimes += 1;
+        resetKeyText.innerText = 'confirm';
+        return;
+    }
+
+    localStorage.clear();
+    Toastify({
+        text: "Key cleared.",
+        duration: 1200,
+        className: "info",
+        position: "center",
+        gravity: "bottom",
+        style: {
+            background: "#414141",
+        }
+    }).showToast();
+    resetKeyCilckTimes = 0;
+    resetKeyText.innerText = 'reset';
+}
+
 function startTOTPgen() {
     var $totp = document.getElementById('pwdOutput');
     const keyInput = document.getElementById('keyInput');
-    const maxTime = document.getElementById('maxTime').value;
+    const maxTime = 30;
     const progressArea = document.getElementById('progressArea');
     const progressLine = document.querySelectorAll(".progressLine");
+    var localKey = localStorage.getItem("localKey");
+    console.log(localKey);
+
+    if (!localKey) {
+        localStorage.setItem("localKey", keyInput.value);
+        localKey = localStorage.getItem("localKey");
+        console.log(localKey);
+    }
+
+    if (localKey && keyInput.value && localKey != keyInput.value) {
+        localStorage.clear();
+        localStorage.setItem("localKey", keyInput.value);
+        localKey = localStorage.getItem("localKey");
+
+        Toastify({
+            text: "Key saved.",
+            duration: 1200,
+            className: "info",
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "#414141",
+            }
+        }).showToast();
+    }
 
     progressArea.style.display = "";
     rangeValue.value = maxTime;

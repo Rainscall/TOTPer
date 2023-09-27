@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
-<body>
+<body onload="startUp()">
     <div class="basePart">
         <div class="mainPart">
             <div class="childPart" style="margin-bottom:0;">
@@ -30,11 +30,15 @@
                     <div class="inputRange" style="margin-top: 8px;">
                         <div class="keyInput">
                             <form action="javascript:pressEnter('keyInput','startTOTPgen');">
-                                <input type="text" name="keyInput" id="keyInput" placeholder="key">
+                                <input autocomplete="off" type="text" name="keyInput" id="keyInput" placeholder="key">
                             </form>
                         </div>
                         <div class="keyInput" style="width: 25%;margin-left: 8px;">
-                            <input type="number" name="maxTime" id="maxTime" placeholder="time" value="30">
+                            <div>
+                                <a style="color: #777777;" onclick="resetKey();" href="javascript:void(0);">
+                                    <span id="resetKeyText">reset</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="inputRange" id="progressArea" style="display: none;">
