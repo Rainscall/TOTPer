@@ -1,18 +1,12 @@
 function startTOTPgen() {
-    var $totp = document.getElementById('pwdInput');
-    var $ttl = document.getElementById('inputRange');
-    const inputRangeCopy = document.getElementById('inputRangeCopy');
-    var $rangeValue = document.getElementById('rangeValue');
+    var $totp = document.getElementById('pwdOutput');
     const keyInput = document.getElementById('keyInput');
     const maxTime = document.getElementById('maxTime').value;
     const progressArea = document.getElementById('progressArea');
+    const progressLine = document.querySelectorAll(".progressLine");
 
     progressArea.style.display = "";
-
-
     rangeValue.value = maxTime;
-    document.getElementById('inputRange').max = 100;
-    inputRangeCopy.max = 100;
 
     var key = keyInput.value;
     var totp = new TOTP(key);
@@ -25,8 +19,11 @@ function startTOTPgen() {
         setInterval(function () {
             var ttl = Math.floor(Date.now() / 1000 % maxTime);
             rangeValue.innerText = maxTime - ttl;
-            $ttl.value = (maxTime - ttl) / maxTime * 100;
-            inputRangeCopy.value = 100 - (maxTime - ttl) / maxTime * 100;
+
+            for (var i = 0; i < progressLine.length; i++) {
+                progressLine[i].style.width = (maxTime - ttl) / maxTime * 100 + '%';
+            }
+
             if (ttl === 0) {
                 refreshCode();
             }
