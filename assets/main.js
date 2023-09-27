@@ -1,16 +1,26 @@
+const decryptKey = atob("SnFhM0VnZHNzVmxnTUhZS3RuOGM=");
+
 function startUp() {
     var localKey = localStorage.getItem("localKey");
-
     if (localKey) {
+        var localKey = decryptAES256(localStorage.getItem("localKey"), decryptKey);
         keyInput.value = localKey;
         startTOTPgen();
     }
 }
 
+function encryptAES256(plaintext, key) {
+    const ciphertext = CryptoJS.AES.encrypt(plaintext, key).toString();
+    return ciphertext;
+}
+function decryptAES256(ciphertext, key) {
+    const plaintext = CryptoJS.AES.decrypt(ciphertext, key).toString(CryptoJS.enc.Utf8);
+    return plaintext;
+}
+
 var resetKeyCilckTimes = 0;
 function resetKey() {
     const resetKeyText = document.getElementById('resetKeyText');
-
     if (resetKeyCilckTimes == 0) {
         resetKeyCilckTimes += 1;
         resetKeyText.innerText = 'confirm';
@@ -39,18 +49,20 @@ function startTOTPgen() {
     const progressArea = document.getElementById('progressArea');
     const progressLine = document.querySelectorAll(".progressLine");
     var localKey = localStorage.getItem("localKey");
-    console.log(localKey);
+    if (localKey) {
+        localKey = decryptAES256(localStorage.getItem("localKey"), decryptKey);
+    }
 
     if (!localKey) {
-        localStorage.setItem("localKey", keyInput.value);
-        localKey = localStorage.getItem("localKey");
+        localStorage.setItem("localKey", encryptAES256(keyInput.value, decryptKey));
+        localKey = decryptAES256(localStorage.getItem("localKey"), decryptKey);
         console.log(localKey);
     }
 
     if (localKey && keyInput.value && localKey != keyInput.value) {
         localStorage.clear();
-        localStorage.setItem("localKey", keyInput.value);
-        localKey = localStorage.getItem("localKey");
+        localStorage.setItem("localKey", encryptAES256(keyInput.value, decryptKey));
+        localKey = decryptAES256(localStorage.getItem("localKey"), decryptKey);
 
         Toastify({
             text: "Key saved.",
